@@ -45,6 +45,8 @@ if (!opts.tenantId || !opts.clientId || !opts.clientSecret) {
       opts.clientSecret
     );
     const apps = await getIntuneApps(token);
+    log.info("Found %d apps in Intune", apps.length);
+    log.silly("Apps %O", apps);
 
     // if output directory doesn't exist, create it
     if (!fs.existsSync("output")) {
@@ -55,7 +57,7 @@ if (!opts.tenantId || !opts.clientId || !opts.clientSecret) {
     await addAppsToDb(db, apps);
 
     if (opts.metadata) {
-      log.debug("Enriching app metadata");
+      log.info("Enriching app metadata");
       // we'll need to enrich the app metadata
       // but we need to wait 5 seconds between requests
       // and we don't want to hit the API too hard
@@ -70,6 +72,7 @@ if (!opts.tenantId || !opts.clientId || !opts.clientSecret) {
         await enrichAppMetadata(app, db);
         await new Promise((resolve) => setTimeout(resolve, 5000));
       }
+      log.info("Enriched app metadata for %d apps", dbApps.length);
     }
 
     await exportToCsvAndJson(db, opts.output);
@@ -166,7 +169,7 @@ async function addAppsToDb(db, apps) {
         platform,
       ];
       await dbUtils.run(db, sqlInsert, paramsInsert);
-      log.info("Inserted app %s into the database", platformAppKey);
+      log.debug("Inserted app %s into the database", platformAppKey);
     } catch (error) {
       log.error("Error processing app insertion: %s", error);
     }
@@ -211,7 +214,8 @@ async function exportToCsvAndJson(db, fileName) {
   fs.writeFileSync(`output/${fileName}.csv`, csv);
   fs.writeFileSync(`output/${fileName}.json`, JSON.stringify(rows, null, 2));
   log.info(
-    "Exported data to output/%s.csv & output/%s.json",
+    "Exported data to\nCSV: output/%s.csv\nJSON: output/%s.json\nSQLite: output/%s.db",
+    fileName,
     fileName,
     fileName
   );
@@ -342,7 +346,7 @@ async function enrichAppMetadata(appData, db) {
     if (err) {
       log.error("Error updating app metadata for %s: %s", platformAppKey, err);
     } else {
-      log.info("Updated app metadata for %s", platformAppKey);
+      log.debug("Updated app metadata for %s", platformAppKey);
     }
   });
 }
