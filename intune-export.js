@@ -236,7 +236,7 @@ async function enrichAppMetadata(appData, db) {
     if (platform === "android") {
       appMetadata = await gplay.app({ appId: packageId, throttle: 1 });
     } else if (platform === "ios") {
-      console.log("Fetching iOS app metadata for %s", itunesId);
+      log.debug("Fetching iOS app metadata for %s", itunesId);
       appMetadata = await store.app({ id: itunesId, ratings: true });
     } else {
       log.error("Unsupported platform %s", platform);
