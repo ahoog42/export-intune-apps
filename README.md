@@ -67,13 +67,13 @@ You can run the cli as follows:
 
 If you want to populate app metadata from the Apple App or Google Play stores, add the `--metadata` switch:
 
-``node intune-export.js --metadata --tenantId <your-tenant-id> --clientId <your-client-id>`
+`node intune-export.js --metadata --tenantId <your-tenant-id> --clientId <your-client-id>`
 
 ## Usage
 
+```
 Usage: intune-export [options]
 
-```
 Options:
   --tenantId <tenantId>  Azure Tenant ID
   --clientId <clientId>  Azure Client ID
