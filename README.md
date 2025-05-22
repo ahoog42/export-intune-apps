@@ -87,6 +87,7 @@ Options:
 ### Examples
 
 > Note: added --no-deprecation flag to node to supress deprecation notice
+
 `node --no-deprecation intune-export.js --metadata`
 
 ## Contributing
