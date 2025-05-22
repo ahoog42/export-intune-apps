@@ -12,8 +12,8 @@ const log = require("./lib/logger");
 const dbUtils = require("./lib/db");
 
 program
-  .requiredOption("--tenantId <tenantId>", "Azure Tenant ID")
-  .requiredOption("--clientId <clientId>", "Azure Client ID")
+  .option("--tenantId <tenantId>", "Azure Tenant ID")
+  .option("--clientId <clientId>", "Azure Client ID")
   .option("--debug", "Enable debug logging")
   .option("--metadata", "Enrich app metadata")
   .option("--output <filename>", "Filename", "intune_apps");
