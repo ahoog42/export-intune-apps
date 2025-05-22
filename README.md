@@ -59,6 +59,8 @@ A lightweight cli that extracts installed app from an Intune instance, enriches 
 CLIENT_SECRET=<your-client-secret>
 ```
 
+> Tip: you can also add TENANT_ID and CLIENT_ID to the .env so you don't have to add command line each time. The cli option provides a more scriptable interface and better support for multiple environments (e.g. test vs production)
+
 ## Usage
 
 You can run the cli as follows:
@@ -69,8 +71,7 @@ If you want to populate app metadata from the Apple App or Google Play stores, a
 
 `node intune-export.js --metadata --tenantId <your-tenant-id> --clientId <your-client-id>`
 
-## Usage
-
+### Usage help
 ```
 Usage: intune-export [options]
 
@@ -82,6 +83,11 @@ Options:
   --output <filename>    Filename (default: "intune_apps")
   -h, --help             display help for command
 ```
+
+### Examples
+
+> Note: added --no-deprecation flag to node to supress deprecation notice
+`node --no-deprecation intune-export.js --metadata`
 
 ## Contributing
 
