@@ -12,7 +12,7 @@
   "type": "commonjs",
   "dependencies": {
     "app-store-scraper": "^0.18.0",
-    "axios": "^1.8.4",
+    "axios": "^1.13.5",
     "commander": "^13.1.0",
     "dotenv": "^16.4.7",
     "google-play-scraper": "^9.2.0",
